@@ -1,6 +1,7 @@
 import pyttsx3
 import datetime
 import speech_recognition as sr
+import wikipedia
 
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
@@ -68,4 +69,9 @@ if __name__ == "__main__":
             time()
         elif "off-line" in query:
             quit()
-
+        elif "wikipedia" in query:
+            wikipedia.set_lang('it')
+            speak("Sto cercando...")
+            query=query.replace("wikipedia", "")
+            result = wikipedia.summary(query, sentences = 2)
+            speak(result)

@@ -30,10 +30,8 @@ def date():
     speak(year)
 
 # greetings
-def wishme():
+def wishMe():
     speak("Bentornato!")
-    date()
-    time()
     speak("Come posso aiutarti?")
 
 # takes a command from microphone
@@ -56,5 +54,18 @@ def takeCommand():
 
     return query
 
-#  wishme()
-takeCommand()
+if __name__ == "__main__":
+
+    wishMe()
+
+    while True:
+        query = takeCommand().lower()
+        print(query)
+
+        if "data" in query:
+            date()
+        elif "ore" in query or "ora" in query:
+            time()
+        elif "off-line" in query:
+            quit()
+

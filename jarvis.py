@@ -1,5 +1,6 @@
 import pyttsx3
 import datetime
+import speech_recognition as sr
 
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
@@ -15,6 +16,7 @@ def speak(audio):
 # tells the current time
 def time():
     Time = datetime.datetime.now().strftime("%I:%M:%S")
+    speak("L'orario corrente è")
     speak(Time)
 
 # tells the current date
@@ -27,5 +29,27 @@ def date():
     speak(month)
     speak(year)
 
-speak("Buongiorno a tutti")
-date()
+def wishme():
+    speak("Bentornato!")
+    date()
+    time()
+    speak("Come posso aiutarti?")
+
+def takeCommand():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Sto ascoltando...")
+        r.pause_threshold = 1
+        audio = r.listen(source)
+
+    try:
+        print("Sto elaborando...")
+        query = r.recognize_google(audio, 'it=IT')
+        print(query)
+    except Exception as e:
+        print(e)
+        speak("Per favore, ripeti...")
+
+    return "None"
+
+wishme()

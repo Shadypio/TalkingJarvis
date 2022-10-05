@@ -1,2 +1,2 @@
 # TalkingJarvis
-Simple AI Voice Assistant with basic features
+Simple AI Voice Assistant with basic features [Italian Language]

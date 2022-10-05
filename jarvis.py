@@ -29,12 +29,14 @@ def date():
     speak(month)
     speak(year)
 
+# greetings
 def wishme():
     speak("Bentornato!")
     date()
     time()
     speak("Come posso aiutarti?")
 
+# takes a command from microphone
 def takeCommand():
     r = sr.Recognizer()
     with sr.Microphone() as source:
@@ -44,12 +46,15 @@ def takeCommand():
 
     try:
         print("Sto elaborando...")
-        query = r.recognize_google(audio, 'it=IT')
+        query = r.recognize_google(audio, language = 'it-it')
         print(query)
     except Exception as e:
         print(e)
         speak("Per favore, ripeti...")
 
-    return "None"
+        return "None"
 
-wishme()
+    return query
+
+#  wishme()
+takeCommand()

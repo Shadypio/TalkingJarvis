@@ -5,8 +5,9 @@ import wikipedia # pip install wikipedia
 import smtplib
 import webbrowser as wb
 import os
-import pyautogui # pip isntall pyautogui
-
+import pyautogui # pip install pyautogui
+import psutil # pip install psutil
+import pyjokes # pip install pyjokes
 
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
@@ -74,8 +75,18 @@ def sendMail(to, content):
 
 def screenshot():
     img = pyautogui.screenshot()
-    img.save("C:\Users\Enzuc\Desktop\ss.png")
+    #img.save("C:\Users\Enzuc\Desktop\ss.png")
 
+def cpu():
+    usage = str(psutil.cpu_percent())
+    speak("La CPU è in uso al " + usage)
+
+    battery = psutil.sensors_battery()
+    speak("La batteria è al ")
+    speak(battery.percent)
+
+def jokes():
+    speak(pyjokes.get_joke("it"))
 
 if __name__ == "__main__":
 
@@ -143,3 +154,10 @@ if __name__ == "__main__":
         elif "cattura" in query:
             screenshot()
             speak("Ho salvato la cattura sul desktop")
+
+        elif "cpu" in query:
+            cpu()
+
+        elif "barzelletta":
+            jokes()
+

@@ -3,6 +3,8 @@ import datetime
 import speech_recognition as sr # pip install SpeechRecognition
 import wikipedia # pip install wikipedia
 import smtplib
+import webbrowser as wb
+import os
 
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
@@ -89,7 +91,7 @@ if __name__ == "__main__":
             query=query.replace("wikipedia", "")
             result = wikipedia.summary(query, sentences = 2)
             speak(result)
-        elif "e-mail" or "mail" in query:
+        elif "e-mail" in query or "mail" in query:
             try:
                 speak("Qual è il messaggio?")
                 content = takeCommand()
@@ -99,3 +101,35 @@ if __name__ == "__main__":
             except Exception as e:
                 print(e)
                 speak("Errore")
+
+        elif "cerca" in query:
+            speak("Cosa devo cercare?")
+            chromepath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
+            search = takeCommand().lower()
+            wb.get(chromepath).open_new_tab(search + ".com")
+
+        elif "log out" in query:
+            os.system("shutdown - l")
+
+        elif "spegni" in query:
+            os.system("shutdown /s /t 1")
+
+        elif "riavvia" in query:
+            os.system("shutdown /r /t 1")
+
+        elif "riproduci" in query:
+            songs_dir = "#path"
+            songs = os.listdir(songs_dir)
+            os.startfile(os.path.join(songs_dir, songs[0]))
+
+        elif "registra" in query:
+            speak("Cosa devo ricordarti?")
+            data = takeCommand()
+            speak("Va bene")
+            remember = open("data.txt", "w")
+            remember.write(data)
+            remember.close()
+
+        elif "ricordami" in query:
+            remember = open("data.txt", "r")
+            speak(remember.read())

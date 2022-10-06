@@ -5,6 +5,8 @@ import wikipedia # pip install wikipedia
 import smtplib
 import webbrowser as wb
 import os
+import pyautogui # pip isntall pyautogui
+
 
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
@@ -70,6 +72,10 @@ def sendMail(to, content):
     server.sendmail("test@gmail.com", to, content)
     server.close()
 
+def screenshot():
+    img = pyautogui.screenshot()
+    img.save("C:\Users\Enzuc\Desktop\ss.png")
+
 
 if __name__ == "__main__":
 
@@ -133,3 +139,7 @@ if __name__ == "__main__":
         elif "ricordami" in query:
             remember = open("data.txt", "r")
             speak(remember.read())
+
+        elif "cattura" in query:
+            screenshot()
+            speak("Ho salvato la cattura sul desktop")

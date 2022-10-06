@@ -1,7 +1,8 @@
-import pyttsx3
+import pyttsx3 # pip install pyttsx3
 import datetime
-import speech_recognition as sr
-import wikipedia
+import speech_recognition as sr # pip install SpeechRecognition
+import wikipedia # pip install wikipedia
+import smtplib
 
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
@@ -55,6 +56,19 @@ def takeCommand():
 
     return query
 
+# send email
+'''
+No Longer Works Since 30th May, 2022
+'''
+def sendMail(to, content):
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.ehlo()
+    server.starttls()
+    server.login("test@gmail.com", "pass")
+    server.sendmail("test@gmail.com", to, content)
+    server.close()
+
+
 if __name__ == "__main__":
 
     wishMe()
@@ -75,3 +89,13 @@ if __name__ == "__main__":
             query=query.replace("wikipedia", "")
             result = wikipedia.summary(query, sentences = 2)
             speak(result)
+        elif "e-mail" or "mail" in query:
+            try:
+                speak("Qual è il messaggio?")
+                content = takeCommand()
+                to="send@gmail.com"
+                sendMail(to, content)
+                speak("E-mail inviata correttamente")
+            except Exception as e:
+                print(e)
+                speak("Errore")
